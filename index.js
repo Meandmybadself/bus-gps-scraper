@@ -40,13 +40,14 @@ const login = async (username, password, inputs) => {
     const data = new FormData()
     data.append('TxtBxUName', username)
     data.append('TxtBxPword', password)
+    data.append('BtnLogin', 'Login')
     Object.entries(inputs).forEach(([key, value]) => {
         data.append(key, value)
     })
 
     const response = await client.post('/onscreen/MyStop/LoginMobile.aspx', data);
     const html = response.data;
-
+    // Blowing up here.
     // console.log(html)
 }
 

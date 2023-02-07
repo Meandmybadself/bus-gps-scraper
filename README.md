@@ -1,13 +1,29 @@
+# Bus GPS Scraper
+
+## Overview
+To make bus GPS / estimated time of arrival available programmatically.
+The system makes use of ASP / ASP sessions and View State security.
+
+## Problems to solve:
+### Logging in results in error.
+
+```
+[ArgumentException]: Invalid postback or callback argument.  Event validation is enabled using <pages enableEventValidation='true'/> in configuration or <%@ Page EnableEventValidation='true' %> in a page.  For security purposes, this feature verifies that arguments to postback or callback events originate from the server control that originally rendered them.  If the data is valid and expected, use the ClientScriptManager.RegisterForEventValidation method in order to register the postback or callback data for validation.
+```
+
+### ~ASP session cookies not being sent~ Resolved
+Using tough cookie to persist cookie across requests.
+
 ## Environment variables
 * USERNAME
 * PASSWORD
 
 ## Interactions
 
-`GET https://vtrans-web.hopkinsschools.org/onscreen/MyStop/LoginMobile.aspx`
+`1. GET https://vtrans-web.hopkinsschools.org/onscreen/MyStop/LoginMobile.aspx`
 Get the login page / its viewstate & ASP session cookie.
 
-`POST https://vtrans-web.hopkinsschools.org/onscreen/MyStop/LoginMobile.aspx`
+`2. POST https://vtrans-web.hopkinsschools.org/onscreen/MyStop/LoginMobile.aspx`
 
 Needs cookie and form payload:
 
@@ -22,7 +38,7 @@ TxtBxPWord=PASSWORD_REDACTED
 BtnLogin=Login
 ```
 
-`POST https://vtrans-web.hopkinsschools.org/onscreen/MyStop/WheresMyBus.aspx/GetVehicleData`
+`3. POST https://vtrans-web.hopkinsschools.org/onscreen/MyStop/WheresMyBus.aspx/GetVehicleData`
 
 ```
 {
